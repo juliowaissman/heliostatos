@@ -1,45 +1,57 @@
+%% histogramas_por_temporada.m
+% Realiza un histograma (de la primer repetición del archivo
+% con los datos por cada temporada (verano, invierno, primavera)
+% sin contemplar la otra temporada de quinoxio al ser muy similares.
 clear all
 close all
 clc
-% dfittool <--- Comando para ajustar distribuciones
-% heliostatos = load('posiciones.txt', '-ascii');
-heliostatos = xlsread('posiciones.xls');
-d = 50;
-caso = 1;
-nombre = 'heliostato=todos';
-%texto = {'0,0,0,3', '0,0,3,0', '0,3,0,0','3,0,0,0'};
-%texto = {'3,3,3,3', '05,05,05,3', '05,05,3,05', '05,3,05,05','3,05,05,05'};
-texto = {'3,3,3,3', '3,3,3,3', '3,3,3,3', '3,3,3,3','3,3,3,3'};
 
-desviaciones_nominales = [3e-3 3e-3 3e-3 3e-3];
+%% Carga los datos necesarios para realizar y guardar los histogramas
 
-% desviaciones_nominales = [0    0    0    3e-3];
-
-
-% desviaciones_nominales = [0    0    0    3e-3;...
-%                           0    0    3e-3 0   ;...
-%                           0    3e-3 0    0   ;...
-%                           3e-3 0    0    0];
-
-casos = {'primavera','verano','invierno'};
-E1 = [];
-E2 = [];
-E3 = [];
-E4 = [];
-repeticiones = 4;
-for desviaciones = 1:size(desviaciones_nominales,1)
-    for h = 1:size(heliostatos, 1)
-        %load(['Anual_rep_', int2str(repeticiones), '_heliostato_', int2str(h), '_chico']);
-        load([nombre,',_caso=',casos{caso},',_desviacion=',texto{desviaciones}, ',_heliostato=', int2str(h)]);
-        temp = TNE(:,3:end);
-        E1 = [E1; temp(:, 1)];
-        E2 = [E2; temp(:, 2)];
-        E3 = [E3; temp(:, 3)];
-        E4 = [E4; temp(:, 4)];
-        clear TNE TNX TNY
-        
-    end
+% campo = 0 es el campo chico, y campo = 1 es el campo mediano
+campo = 0;
+if campo == 0
+    archivo_posiciones = '../campos_info/posiciones_chico.txt';
+    archivos_datos = '../data_gen/campo_chico/heliostato';    
+    archivos_imagen = '../figuras/campo_chico/histograma_anual';
+elseif campo == 1
+    archivo_posiciones = '../campos_info/posiciones_grande.txt';
+    archivos_datos = '../data_gen/campo_grande/heliostato';    
+    archivos_imagen = '../figuras/campo_grande/histograma_anual';
 end
+heliostatos = load(archivo_posiciones, '-ascii');    % Campo chico
+
+% desviaciones (solo un vector) asumiendo que se simuló previamente el
+% campo utilizando la función simulacion_anual.m
+desviaciones = [3e-3, 3e-3, 3e-3, 3e-3];
+des_str = sprintf('_%1.0f', desviaciones * 1e3);
+
+% Numero de bins del histograma
+bins = 50;
+
+% Información de las temporada
+nombres = ['spring', 'summer', 'winter'];
+dias = [80, 172 355];
+lapso_izq = 45;
+lapso_der = 45;
+
+%% Obtiene los vectores de error
+
+E_primavera = [];
+E_verano = [];
+E_invierno[];
+
+for h = 1:size(heliostatos, 1)
+    %load(['Anual_rep_', int2str(repeticiones), '_heliostato_', int2str(h), '_chico']);
+    load([nombre,',_caso=',casos{caso},',_desviacion=',texto{desviaciones}, ',_heliostato=', int2str(h)]);
+    temp = TNE(:,3:end);
+    E_primavera = [E_primavera; temp(:, 1)];
+    E_verano = [E_verano; temp(:, 2)];
+    E_invierno = [E_invierno; temp(:, 3)];
+    clear TNE TNX TNY        
+end
+
+%% Realiza las gráficas
 
 figure();
 histfit(E1, d);
