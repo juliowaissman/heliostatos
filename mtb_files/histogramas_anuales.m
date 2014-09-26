@@ -14,7 +14,7 @@ clc
 %% Información sobre el histograma a generar
 
 % campo = 0 es el campo chico, y campo = 1 es el campo mediano
-campo = 1;
+campo = 0;
 if campo == 0
     archivo_posiciones = '../campos_info/posiciones_chico.txt';
     archivos_datos = '../data_gen/campo_chico/heliostato';    
@@ -67,6 +67,15 @@ end
 
 %% Prueba de hipótesis
 % Prueba que 2 muestras provienen de la misma distribución
-[h,p,stats] = ansaribradley(E(:,1), E(:,2))
+% Se utiliza la versión existente en la tlbx de statistical del test de
+% Wilcoxson para n conjuntos, aunque solo lo utilizamos con 2.
+
+% Si p-value es muy pequeño, esto sugiere que la mediana de ambas
+% muestras son significativamente diferentes
+
+tamano_muestra = 1000;
+muestra1 = randsample(E(:,1), tamano_muestra);
+muestra2 = randsample(E(:,2), tamano_muestra);
+p = kruskalwallis([muestra1, muestra2]);
 
     
