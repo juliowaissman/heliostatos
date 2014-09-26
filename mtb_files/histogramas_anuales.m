@@ -11,14 +11,16 @@ clear all
 close all
 clc
 
-%% Información sobre el archivo a abrir
+%% Información sobre el histograma a generar
 
 % campo = 0 es el campo chico, y campo = 1 es el campo mediano
-campo = 0;
+campo = 1;
 if campo == 0
+    archivo_posiciones = '../campos_info/posiciones_chico.txt';
     archivos_datos = '../data_gen/campo_chico/heliostato';    
     archivos_imagen = '../figuras/campo_chico/histograma_anual';
 elseif campo == 1
+    archivo_posiciones = '../campos_info/posiciones_grande.txt';
     archivos_datos = '../data_gen/campo_grande/heliostato';    
     archivos_imagen = '../figuras/campo_grande/histograma_anual';
 end
@@ -27,10 +29,14 @@ heliostatos = load(archivo_posiciones, '-ascii');    % Campo chico
 % desviaciones (solo un vector) asumiendo que se simuló previamente el
 % campo utilizando la función simulacion_anual.m
 desviaciones = [3e-3, 3e-3, 3e-3, 3e-3];
-des_str = sprintf('_%1.0f', desviaciones_nominales * 1e3);
-        
+des_str = sprintf('_%1.0f', desviaciones * 1e3);
+
+% Numero de bins del histograma
+bins = 100;
 
 %% Ahora vamos a obtener los errores de todos los helióstatos 
+% A poartir de aqui se puede modificar para corrección, pero no es
+% necesario tocarlo para hacer diferentes simulaciones.
 
 E = [];
 for h = 1:size(heliostatos, 1)
@@ -45,10 +51,12 @@ end
 
 for r = 1:size(E, 2)
     figure();
-    hist(E(:,r), d);
+    hist(E(:,r), bins);
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
 
-    title(['\fontsize{22}', ' Temporada: ',casos{caso},'\newline Desviaciones: ',texto{desviaciones}]);
+    %cintilla = sprintf('\\sigma_\\beta = %2.1e, \\sigma_\\gamma = %2.1e, \\sigma_\\etta = %2.1e, \\sigma_\\kappa = %2.1e',desviaciones)
+    %title({'Anual error histogram'; cintilla}, 'FontSize', 22);
+    title('Anual error histogram', 'FontSize', 22);
 
     ylabel('Frequency', 'FontSize', 22, 'FontName', 'Times New Roman');
     xlabel('\theta (rad)', 'FontSize', 22, 'FontName', 'Times New Roman')
