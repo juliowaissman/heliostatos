@@ -14,7 +14,7 @@ clc
 %% Información sobre el histograma a generar
 
 % campo = 0 es el campo chico, y campo = 1 es el campo mediano
-campo = 0;
+campo = 1;
 if campo == 0
     archivo_posiciones = '../campos_info/posiciones_chico.txt';
     archivos_datos = '../data_gen/campo_chico/heliostato';    
@@ -22,7 +22,7 @@ if campo == 0
 elseif campo == 1
     archivo_posiciones = '../campos_info/posiciones_grande.txt';
     archivos_datos = '../data_gen/campo_grande/heliostato';    
-    archivos_imagen = '../figuras/campo_grande/histograma_anual';
+archivos_imagen = '../figuras/campo_grande/histograma_anual';
 end
 heliostatos = load(archivo_posiciones, '-ascii');    % Campo chico
 
@@ -49,7 +49,7 @@ end
 %% Graficacion de histogramas
 % Teniendo E, se realiza un histograma por columna
 
-for r = 1:size(E, 2)
+for r = 1:5
     figure();
     hist(E(:,r), bins);
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
