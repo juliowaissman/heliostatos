@@ -1,4 +1,4 @@
-function [h, p, stats] = prueba_wbl(x, muestra, nbins, x_min)
+function [h, p, stats, params_wbl] = prueba_wbl(x, muestra, nbins, x_min)
 % PRUEBA_WBL .- prueba de hypótesis sobre una distribucion Weibull
 %
 % [h, p, stats] = prueba(x, muestra)
@@ -25,7 +25,6 @@ function [h, p, stats] = prueba_wbl(x, muestra, nbins, x_min)
 % Statistics.
 
 % Julio Waissman, Luiz Díaz y Camilo Arancibia, 2014
-% Todos los derechos reservados de acuerdo a la licencia Creative Commons
 
 datos_muestra = randsample(x, muestra);
 
