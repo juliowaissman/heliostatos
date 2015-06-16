@@ -108,7 +108,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [1, desviaciones, params_wbl, p_media, h0s]];
     
     figure();
-    histfit(E_primavera, bins,'Weibull');
+    histfit(E_primavera(E_primavera > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Spring', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
@@ -123,7 +123,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [2, desviaciones, params_wbl, p_media, h0s]];
     
     figure();
-    histfit(E_verano, bins,'Weibull');
+    histfit(E_verano(E_verano > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Summer', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
@@ -138,7 +138,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [3, desviaciones, params_wbl, p_media, h0s]];
     
     figure();
-    histfit(E_invierno, bins,'Weibull');
+    histfit(E_invierno(E_invierno > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Winter', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
@@ -153,7 +153,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [1, desviaciones, params_wbl, p_media, h0s]];
     
     figure();
-    histfit(E_primaveraC, bins,'Weibull');
+    histfit(E_primaveraC(E_primaveraC > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Spring C ', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
@@ -168,7 +168,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [2, desviaciones, params_wbl, p_media, h0s]];
 
     figure();
-    histfit(E_veranoC, bins,'Weibull');
+    histfit(E_veranoC(E_veranoC > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Summer C ', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
@@ -183,7 +183,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     resumen = [resumen; [3, desviaciones, params_wbl, p_media, h0s]];
     
     figure();
-    histfit(E_inviernoC, bins,'Weibull');
+    histfit(E_inviernoC(E_inviernoC > 0), bins,'Weibull');
     set(gca, 'FontSize', 12, 'FontName', 'Times New Roman');
     title(['\fontsize{12}', 'Winter C ', err_str, weibull_str]);
     ylabel('Frequency', 'FontSize', 18, 'FontName', 'Times New Roman');
