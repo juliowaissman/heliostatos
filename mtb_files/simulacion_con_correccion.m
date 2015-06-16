@@ -17,11 +17,10 @@ close all
 campo = 1;
 if campo == 0
     archivo_posiciones = '../campos_info/posiciones_chico.txt';
-    archivos_salida = '../data_gen/campo_chico/compensado_heliostato';    
+    archivos_salida = '../data_gen/campo_chico/viento_heliostato';    
 elseif campo == 1
     archivo_posiciones = '../campos_info/posiciones_grande.txt';
-    archivos_salida = '../data_gen/campo_grande/compensado_heliostato';    
-    archivos_comp = '../data_gen/compensacion/grande_';
+    archivos_salida = '../data_gen/campo_grande/viento_heliostato';    
 end
 heliostatos = load(archivo_posiciones, '-ascii');    % Campo chico
 num_heliostatos = size(heliostatos, 1);
@@ -66,8 +65,8 @@ T = (8*60:muestreo:16*60)';   % Vector de los tiempos en un d'ia.
 desviaciones_nominales = [1.5e-3,     1.5e-3,   1.5e-3,   1.5e-3];
 
 
-k_beta = 0.15e-3; % 0.75e-3; 1.5e-3
-k_gamma = 0.15e-3;
+k_beta = 1.5e-3; % 0.75e-3; 1.5e-3
+k_gamma = k_beta;
 
 %% Calculo propiamente dicho
 % Se comenta para ver y modificar mas adelante pero para realizar
@@ -77,7 +76,7 @@ k_gamma = 0.15e-3;
 for des_index = 1:size(desviaciones_nominales, 1)
     
     desviaciones = desviaciones_nominales(des_index, :);
-    des_str = sprintf('_%1.1f', desviaciones * 1e3);
+    des_str = sprintf('_%1.2f', [desviaciones, k_beta] * 1e3);
     
     % Genera el vector de tiempos de todo el año
     [dias, tiempo] = meshgrid(1:365, T);
@@ -133,7 +132,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
         rc = rh - compensacion;
 
         % Se recalcula una orientación "ideal" del helióstato compensado
-        [beta, gamma, n] = orientacion_ideal(s_hat, rc/norm(rc));
+        [beta, gamma, n_corr] = orientacion_ideal(s_hat, rc/norm(rc));
 
         % Obtiene los angulos con error a partir de los errores angulares
         % --- Esto se rehace con compensacion    
