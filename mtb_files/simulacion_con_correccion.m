@@ -73,7 +73,7 @@ desviaciones_nominales = [0.5e-3, 0.5e-3, 0.5e-3, 0.5e-3, 0; ...
 for des_index = 1:size(desviaciones_nominales, 1)
     
     desviaciones = desviaciones_nominales(des_index, :);
-    des_str = sprintf('_%1.2f', [desviaciones, k_beta] * 1e3);
+    des_str = sprintf('_%1.2f', desviaciones * 1e3);
     
     % Genera el vector de tiempos de todo el año
     [dias, tiempo] = meshgrid(1:365, T);
