@@ -16,8 +16,8 @@ if campo == 0
     archivos_imagen = '../figuras/campo_chico/histograma_';
 elseif campo == 1
     archivo_posiciones = '../campos_info/posiciones_grande.txt';
-    archivos_datos = '../data_gen/campo_grande/viento_heliostato';    
-    archivos_imagen = '../figuras/campo_grande/viento_0_histograma_';
+    archivos_datos = '../data_gen/campo_grande/heliostato';    
+    archivos_imagen = '../figuras/campo_grande/histograma_';
 end
 heliostatos = load(archivo_posiciones, '-ascii');    
 
@@ -50,10 +50,8 @@ heliostatos = load(archivo_posiciones, '-ascii');
 %                              0,        0,  10e-3,      0; ...
 %                              0,        0,      0,  10e-3];
                          
-desviaciones_nominales = [1.5e-3,     1.5e-3,   1.5e-3,   1.5e-3];
-k_beta = 0; % 1.5e-3;
-k_gamma = k_beta;
-% desviaciones_nominales = [0,     10e-3,   0,   0];
+desviaciones_nominales = [1.5e-3,     1.5e-3,   1.5e-3,   1.5e-3, 0];
+% desviaciones_nominales = [0,     10e-3,   0,   0, 0];
 
 % Numero de bins del histograma
 bins = 50;
@@ -72,7 +70,7 @@ for des_index = 1:size(desviaciones_nominales, 1)
     close all
 
     desviaciones = desviaciones_nominales(des_index, :);
-    des_str = sprintf('_%1.2f', [desviaciones, k_beta] * 1e3);
+    des_str = sprintf('_%1.2f', desviaciones * 1e3);
 
     % Inicializa los vectores de error
     E_primavera = [];
