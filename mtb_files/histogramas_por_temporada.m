@@ -50,7 +50,8 @@ heliostatos = load(archivo_posiciones, '-ascii');
 %                              0,        0,  10e-3,      0; ...
 %                              0,        0,      0,  10e-3];
                          
-desviaciones_nominales = [1.5e-3,     1.5e-3,   1.5e-3,   1.5e-3, 0];
+%desviaciones_nominales = [1.5e-3,     1.5e-3,   1.5e-3,   1.5e-3, 0];
+desviaciones_nominales = [     0,          0,     3e-3,        0, 0];
 % desviaciones_nominales = [0,     10e-3,   0,   0, 0];
 
 % Numero de bins del histograma
