@@ -7,17 +7,18 @@ des_str = sprintf('_%1.2f', [2.5e-3, 2.5e-3, 2.5e-3, 2.5e-3, 0] * 1e3);
 
 heliostatos = load(archivo_posiciones, '-ascii');  
 
-for i = randsample(1:length(heliostatos), 15)
+for i = randsample(1:100, 15)
     load([archivos_datos, int2str(i), des_str, '.mat']);
     
     figure(1)
-    plot(desplaz(DT(:,1) == 80, 1), desplaz(DT(:,1) == 80, 1), 'k');
+    plot(-desplaz(DT(:,1) == 80, 2), -desplaz(DT(:,1) == 80, 3), 'k');
     hold on;
     
     figure(2)
-    plot(desplaz(DT(:,1) == 80, 1), desplaz(DT(:,1) == 80, 1), 'k');
+    plot(-desplazC(DT(:,1) == 80, 2), -desplazC(DT(:,1) == 80, 3), 'k');
     hold on;
-
+    
     disp(heliostatos(1,:));
+    desplaz(DT(:,1) == 80, 2:3)
 end
 
